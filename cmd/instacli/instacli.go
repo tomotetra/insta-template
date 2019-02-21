@@ -14,6 +14,10 @@ func GenerateTemplate(c *cli.Context) error {
 		logger.Fatal("Usage: please specify a target file")
 	}
 	myExifs := readExif(fileName)
-	logger.Success(fmt.Sprintf("%+v\n", myExifs))
+	text := Template(myExifs, "")
+	logger.Success("done!")
+	fmt.Println("=========== begin ===========")
+	fmt.Println(text)
+	fmt.Println("=========== end ===========")
 	return nil
 }
