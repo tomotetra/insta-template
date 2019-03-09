@@ -1,0 +1,11 @@
+# MacOS
+.DS_Store
+
+# Godep
+Godeps/Readme
+Godeps/_workspace
+
+# application
+vendor/
+main
+output.txt
