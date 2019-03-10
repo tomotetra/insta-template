@@ -8,8 +8,11 @@ import (
 )
 
 // Template builds the post template from exifs
-func Template(x InstaExifs, hashtags string) string {
+func Template(x InstaExifs, params *flagParams) string {
 	var lines []string
+	if len(params.title) > 0 {
+		lines = append(lines, params.title)
+	}
 	lines = append(lines, x.Date)
 	lines = append(lines, "---")
 	lines = append(lines, x.CameraModel)
@@ -17,7 +20,7 @@ func Template(x InstaExifs, hashtags string) string {
 	lines = append(lines, fmt.Sprintf("ISO%s %smm f/%s %ss",
 		x.Settings.ISO, x.Settings.FocalLength, x.Settings.FNumber, x.Settings.ShutterSpeed))
 	lines = append(lines, ".")
-	lines = append(lines, buildHashTags(hashtags))
+	lines = append(lines, buildHashTags(params.tags))
 	return strings.Join(lines, "\n")
 }
 
