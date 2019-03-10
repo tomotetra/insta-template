@@ -1,12 +1,11 @@
 package instacli
 
 import (
-	"fmt"
-	"log"
 	"os"
 	"strings"
 
 	"github.com/rwcarlsen/goexif/tiff"
+	"github.com/tomotetra/instatemplate/cmd/utils/logger"
 
 	"github.com/rwcarlsen/goexif/exif"
 )
@@ -30,12 +29,12 @@ type InstaSettings struct {
 func readExif(fileName string) InstaExifs {
 	targetImage, err := os.Open(fileName)
 	if err != nil {
-		fmt.Printf("Error: failed to read file '%s'", fileName)
+		logger.Fatal("failed to read file")
 		os.Exit(1)
 	}
 	x, err := exif.Decode(targetImage)
 	if err != nil {
-		log.Fatal("Error: failed to read exif file")
+		logger.Fatal("Error: failed to read exif file")
 	}
 	settings := InstaSettings{
 		ISO:          retrieveFormattedField(x, "ISOSpeedRatings"),
@@ -54,7 +53,7 @@ func readExif(fileName string) InstaExifs {
 func retrieveFormattedField(x *exif.Exif, fieldName exif.FieldName) string {
 	val, err := x.Get(fieldName)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 	stringVal := val.String()
 	if val.Format() == tiff.RatVal {

@@ -2,8 +2,8 @@ package instacli
 
 import (
 	"fmt"
-	"log"
 
+	"github.com/tomotetra/instatemplate/cmd/utils/logger"
 	"github.com/urfave/cli"
 )
 
@@ -11,9 +11,9 @@ import (
 func GenerateTemplate(c *cli.Context) error {
 	fileName := c.Args().First()
 	if fileName == "" {
-		log.Fatal("Usage: please specify a target file")
+		logger.Fatal("Usage: please specify a target file")
 	}
 	myExifs := readExif(fileName)
-	fmt.Printf("%+v\n", myExifs)
+	logger.Success(fmt.Sprintf("%+v\n", myExifs))
 	return nil
 }
