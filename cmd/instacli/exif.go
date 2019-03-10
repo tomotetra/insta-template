@@ -1,13 +1,13 @@
 package instacli
 
 import (
+	"math/big"
 	"os"
-	"strings"
 
-	"github.com/rwcarlsen/goexif/tiff"
 	"github.com/tomotetra/instatemplate/cmd/utils/logger"
 
 	"github.com/rwcarlsen/goexif/exif"
+	"github.com/rwcarlsen/goexif/tiff"
 )
 
 // InstaExifs struct
@@ -37,28 +37,51 @@ func readExif(fileName string) InstaExifs {
 		logger.Fatal("Error: failed to read exif file")
 	}
 	settings := InstaSettings{
-		ISO:          retrieveFormattedField(x, "ISOSpeedRatings"),
-		FocalLength:  retrieveFormattedField(x, "FocalLength"),
-		FNumber:      retrieveFormattedField(x, "FNumber"),
-		ShutterSpeed: retrieveFormattedField(x, "ExposureTime"),
+		ISO:          getField(x, "ISOSpeedRatings"),
+		FocalLength:  getField(x, "FocalLength"),
+		FNumber:      getField(x, "FNumber"),
+		ShutterSpeed: getField(x, "ExposureTime"),
 	}
 	return InstaExifs{
-		Date:        retrieveFormattedField(x, "DateTime"),
-		CameraModel: retrieveFormattedField(x, "Model"),
-		LensModel:   retrieveFormattedField(x, "LensModel"),
+		Date:        getField(x, "DateTime"),
+		CameraModel: getField(x, "Model"),
+		LensModel:   getField(x, "LensModel"),
 		Settings:    settings,
 	}
 }
 
-func retrieveFormattedField(x *exif.Exif, fieldName exif.FieldName) string {
-	val, err := x.Get(fieldName)
+func getField(x *exif.Exif, fieldName exif.FieldName) string {
+	tag, err := x.Get(fieldName)
 	if err != nil {
 		logger.Fatal(err)
 	}
-	stringVal := val.String()
-	if val.Format() == tiff.RatVal {
-		// trim denominator if 1
-		stringVal = strings.Replace(stringVal, "/1", "", -1)
+	// fmt.Printf("%s: %s(type: %v)\n", fieldName, tag, tag.Format())
+	stringVal := removeQuotes(tag.String())
+	if tag.Format() == tiff.RatVal {
+		rat, _ := tag.Rat(0)
+		stringVal = ratToString(rat)
+	}
+	return stringVal
+}
+
+func removeQuotes(s string) string {
+	if len(s) > 0 && s[0] == '"' {
+		s = s[1:]
+	}
+	if len(s) > 0 && s[len(s)-1] == '"' {
+		s = s[:len(s)-1]
+	}
+	return s
+}
+
+// preserve rational if numerator or denometer equals to 1.
+// convert to float string otherwise.
+func ratToString(r *big.Rat) string {
+	var stringVal string
+	if r.Num().Cmp(big.NewInt(1))*r.Denom().Cmp(big.NewInt(1)) == 0 {
+		stringVal = r.RatString()
+	} else {
+		stringVal = r.FloatString(1)
 	}
 	return stringVal
 }
