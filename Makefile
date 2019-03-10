@@ -1,5 +1,5 @@
-dev/setup:
+setup:
 	dep ensure
 
-dev/run:
-	go run main.go
+run:
+	go run main.go $(TARGET)
