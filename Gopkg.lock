@@ -2,6 +2,17 @@
 
 
 [[projects]]
+  branch = "go1"
+  digest = "1:392fafc4b5c7a34734e60ea4efa2199ab77e6e914db643232cbe9d99aa6d65cd"
+  name = "github.com/rwcarlsen/goexif"
+  packages = [
+    "exif",
+    "tiff",
+  ]
+  pruneopts = "UT"
+  revision = "b1fd11e07dc5bc0d2ca3b79d28cbdf3c6d186247"
+
+[[projects]]
   digest = "1:b24d38b282bacf9791408a080f606370efa3d364e4b5fd9ba0f7b87786d3b679"
   name = "github.com/urfave/cli"
   packages = ["."]
@@ -12,6 +23,10 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/urfave/cli"]
+  input-imports = [
+    "github.com/rwcarlsen/goexif/exif",
+    "github.com/rwcarlsen/goexif/tiff",
+    "github.com/urfave/cli",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

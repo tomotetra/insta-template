@@ -2,6 +2,7 @@ package instacli
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/tomotetra/instatemplate/cmd/utils/io"
@@ -29,7 +30,7 @@ func buildHashTags(t string) string {
 	if len(t) > 0 {
 		tags = append(tags, strings.Split(t, " ")...)
 	}
-	commonTags, _ := io.ReadLines("common_tags.txt")
+	commonTags, _ := io.ReadLines(fmt.Sprintf("%s/.instatemplate_tags", os.Getenv("HOME")))
 	if len(commonTags) > 0 {
 		tags = append(tags, commonTags...)
 	}
