@@ -30,7 +30,6 @@ func readExif(fileName string) InstaExifs {
 	targetImage, err := os.Open(fileName)
 	if err != nil {
 		logger.Fatal("failed to read file")
-		os.Exit(1)
 	}
 	x, err := exif.Decode(targetImage)
 	if err != nil {
@@ -55,7 +54,6 @@ func getField(x *exif.Exif, fieldName exif.FieldName) string {
 	if err != nil {
 		logger.Fatal(err)
 	}
-	// fmt.Printf("%s: %s(type: %v)\n", fieldName, tag, tag.Format())
 	stringVal := format.RemoveQuotes(tag.String())
 	if tag.Format() == tiff.RatVal {
 		rat, _ := tag.Rat(0)

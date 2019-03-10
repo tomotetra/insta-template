@@ -13,11 +13,9 @@ func GenerateTemplate(c *cli.Context) error {
 	if fileName == "" {
 		logger.Fatal("Usage: please specify a target file")
 	}
-	myExifs := readExif(fileName)
-	text := Template(myExifs, "")
-	logger.Success("done!")
-	fmt.Println("=========== begin ===========")
+	exifs := readExif(fileName)
+	text := Template(exifs, "")
+	// output result
 	fmt.Println(text)
-	fmt.Println("=========== end ===========")
 	return nil
 }
