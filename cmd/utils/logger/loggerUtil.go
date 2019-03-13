@@ -16,6 +16,11 @@ func Error(x interface{}) {
 	prefixLog("ERROR", 31, x)
 }
 
+// Warn logger (yellow)
+func Warn(x interface{}) {
+	prefixLog("WARN", 33, x)
+}
+
 // Success logger (green)
 func Success(x interface{}) {
 	prefixLog("SUCCESS", 32, x)

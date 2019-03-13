@@ -5,6 +5,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/tomotetra/instatemplate/cmd/utils/logger"
+
 	"github.com/tomotetra/instatemplate/cmd/utils/io"
 )
 
@@ -26,13 +28,20 @@ func Template(x InstaExifs, params *flagParams) string {
 }
 
 func buildHashTags(t string) string {
+	MaxHashtags := 30
 	var tags []string
 	if len(t) > 0 {
 		tags = append(tags, strings.Split(t, " ")...)
 	}
 	commonTags, _ := io.ReadLines(fmt.Sprintf("%s/.instatemplate_tags", os.Getenv("HOME")))
+	// commonTags, _ := io.ReadLines("./common_tags.txt")
 	if len(commonTags) > 0 {
 		tags = append(tags, commonTags...)
+	}
+	if len(tags) > MaxHashtags {
+		logger.Warn(fmt.Sprintf("Too many hashtags. (provided: %d)", len(tags)))
+		logger.Warn(fmt.Sprintf("Following hashtags were trimmed:\n%s\n", strings.Join(tags[MaxHashtags+1:], ", ")))
+		tags = tags[:MaxHashtags]
 	}
 
 	var hashTags []string
