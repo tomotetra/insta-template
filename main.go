@@ -4,15 +4,15 @@ import (
 	"log"
 	"os"
 
-	"github.com/tomotetra/instatemplate/cmd/instacli"
+	"github.com/tomotetra/instagen/cmd/instagen"
 	"github.com/urfave/cli"
 )
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "instatemplate"
+	app.Name = "instagen"
 	app.Usage = "create an instagram template"
-	app.Action = instacli.GeneratePost
+	app.Action = instagen.GeneratePost
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "title, T",

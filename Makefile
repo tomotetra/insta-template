@@ -1,7 +1,9 @@
 setup:
-	dep ensure
 	go install
-	cp common_tags.txt $(HOME)/.instatemplate_tags
+	cp instagenTags.txt $(HOME)/.instagenTags
 
-run:
+dev/setup:
+	dep ensure
+
+dev/run:
 	go run main.go -T $(TITLE) -t $(TAGS) $(TARGET)

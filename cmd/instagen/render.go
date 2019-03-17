@@ -1,13 +1,13 @@
-package instacli
+package instagen
 
 import (
 	"fmt"
 	"os"
 	"strings"
 
-	"github.com/tomotetra/instatemplate/cmd/utils/logger"
+	"github.com/tomotetra/instagen/cmd/utils/logger"
 
-	"github.com/tomotetra/instatemplate/cmd/utils/io"
+	"github.com/tomotetra/instagen/cmd/utils/io"
 )
 
 // Template builds the post template from exifs
@@ -33,8 +33,8 @@ func buildHashTags(t string) string {
 	if len(t) > 0 {
 		tags = append(tags, strings.Split(t, " ")...)
 	}
-	commonTags, _ := io.ReadLines(fmt.Sprintf("%s/.instatemplate_tags", os.Getenv("HOME")))
-	// commonTags, _ := io.ReadLines("./common_tags.txt")
+	commonTags, _ := io.ReadLines(fmt.Sprintf("%s/.instagenTags", os.Getenv("HOME")))
+	// commonTags, _ := io.ReadLines("./instagenTags.txt")
 	if len(commonTags) > 0 {
 		tags = append(tags, commonTags...)
 	}

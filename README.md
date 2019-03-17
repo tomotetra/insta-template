@@ -1,30 +1,32 @@
-# insta-template
+# instagen
 Automatically generate instagram posts description from exif data.
 
 ## Setup
 ```bash
-go get github.com/tomotetra/instatemplate
-cd $GOPATH/src/github.com/tomotetra/instatemplate
+go get github.com/tomotetra/instagen
+cd $GOPATH/src/github.com/tomotetra/instagen
 make setup
 ```
 
 ## Usage
 ### Basic Usage
 ```bash
-insta-template path/to/image.jpg
+instagen path/to/image.jpg
 ```
 This will generate the following:
 ```
-2019.03.10
+2019.03.14
 ---
 Canon EOS 5D Mark IV
-EF85mm f/1.4L IS USM
-ISO125 85mm f/1.4 1/100s
+EF24-70mm f/4L IS USM
+ISO100 70mm f/8 1/80s
 .
-#東京カメラ部 #広がり同盟 #写真好きな人と繋がりたい #写真撮ってる人と繋がりたい #ファインダー越しの私の世界 #EXPLOREJPN #ICU_VSCO #IG_JAPAN #IG_PHOS #pIGersJP #IGers_jp #LOVES_UNITED_JAPAN #Lovers_Nippon #PHOS_JAPAN #Photo_jpn #Rox_Captures #UnknownJapan #art_of_japan_ #bd_pro #bestjapanpics #bestphoto_japan #cityspride #daily_photo_jpn #icu_japan #ig_japan #ig_myshot #igworld_global #igworldglobal #instagramjapan #jalan_travel #japan_of_insta #japantravelphoto #jp_gallery #kf_gallery #photo_shorttrip #ptk_japan #retrip_news #s_shot #special_group__ #special_spot_ #super_japan_channel #team_jp_ #tokyocameraclub #visitjapanjp #whim_life #wu_japan
+#東京カメラ部 #写真好きな人と繋がりたい #写真撮ってる人と繋がりたい #ファインダー越しの私の世界 #EXPLOREJPN #IG_JAPAN #IGersJP #PHOS_JAPAN #Rox_Captures #UnknownJapan #bestjapanpics #daily_photo_jpn #icu_japan #ig_myshot #instagramjapan #japan_of_insta #japantravelphoto #photo_shorttrip #retrip_news #team_jp_ #tokyocameraclub #visitjapanjp #wu_japan
 ```
 
-You can set custom default hashtags by editing `$HOME/.instatemplate_tags`.
+You can set custom default hashtags by editing `$HOME/.instagenTags`.
+
+**Warning**: Instagram currently limits users to 30 hashtags per post. Any hashtags exceeding this limit will be trimmed from the end.
 
 ### Options
 | flag          | description                            | example                |
@@ -33,16 +35,16 @@ You can set custom default hashtags by editing `$HOME/.instatemplate_tags`.
 | `--tags, -t`  | additional hashtags separated by space | "cat kitten cats4life" |
 
 ```bash
-insta-template -T hoge -t "foo bar fuga" path/to/image.jpg
+instagen -T hoge -t "instagen foo bar" path/to/image.jpg
 ```
 This will generate the following:
 ```
-2019.03.10
----
 hoge
+2019.03.14
+---
 Canon EOS 5D Mark IV
-EF85mm f/1.4L IS USM
-ISO125 85mm f/1.4 1/100s
+EF24-70mm f/4L IS USM
+ISO100 70mm f/8 1/80s
 .
-#foo #bar #fuga #東京カメラ部 #広がり同盟 #写真好きな人と繋がりたい #写真撮ってる人と繋がりたい #ファインダー越しの私の世界 #EXPLOREJPN #ICU_VSCO #IG_JAPAN #IG_PHOS #pIGersJP #IGers_jp #LOVES_UNITED_JAPAN #Lovers_Nippon #PHOS_JAPAN #Photo_jpn #Rox_Captures #UnknownJapan #art_of_japan_ #bd_pro #bestjapanpics #bestphoto_japan #cityspride #daily_photo_jpn #icu_japan #ig_japan #ig_myshot #igworld_global #igworldglobal #instagramjapan #jalan_travel #japan_of_insta #japantravelphoto #jp_gallery #kf_gallery #photo_shorttrip #ptk_japan #retrip_news #s_shot #special_group__ #special_spot_ #super_japan_channel #team_jp_ #tokyocameraclub #visitjapanjp #whim_life #wu_japan
+#instagen #foo #bar #東京カメラ部 #写真好きな人と繋がりたい #写真撮ってる人と繋がりたい #ファインダー越しの私の世界 #EXPLOREJPN #IG_JAPAN #IGersJP #PHOS_JAPAN #Rox_Captures #UnknownJapan #bestjapanpics #daily_photo_jpn #icu_japan #ig_myshot #instagramjapan #japan_of_insta #japantravelphoto #photo_shorttrip #retrip_news #team_jp_ #tokyocameraclub #visitjapanjp #wu_japan
 ```

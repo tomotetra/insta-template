@@ -1,10 +1,10 @@
-package instacli
+package instagen
 
 import (
 	"os"
 
-	"github.com/tomotetra/instatemplate/cmd/utils/format"
-	"github.com/tomotetra/instatemplate/cmd/utils/logger"
+	"github.com/tomotetra/instagen/cmd/utils/format"
+	"github.com/tomotetra/instagen/cmd/utils/logger"
 
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"

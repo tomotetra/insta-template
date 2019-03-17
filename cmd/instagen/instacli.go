@@ -1,9 +1,9 @@
-package instacli
+package instagen
 
 import (
 	"fmt"
 
-	"github.com/tomotetra/instatemplate/cmd/utils/logger"
+	"github.com/tomotetra/instagen/cmd/utils/logger"
 	"github.com/urfave/cli"
 )
 
