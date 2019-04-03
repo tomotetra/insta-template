@@ -42,7 +42,7 @@ func readExif(fileName string) InstaExifs {
 		ShutterSpeed: getField(x, "ExposureTime"),
 	}
 	return InstaExifs{
-		Date:        format.DateTimeString(getField(x, "DateTime")),
+		Date:        format.DateTimeString(getField(x, "DateTimeOriginal")),
 		CameraModel: getField(x, "Model"),
 		LensModel:   getField(x, "LensModel"),
 		Settings:    settings,
