@@ -1,13 +1,12 @@
-package instagen
+package exif
 
 import (
 	"os"
 
-	"github.com/tomotetra/instagen/cmd/utils/format"
-	"github.com/tomotetra/instagen/cmd/utils/logger"
-
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"
+	"github.com/tomotetra/instagen/src/utils/format"
+	"github.com/tomotetra/instagen/src/utils/logger"
 )
 
 // InstaExifs struct
@@ -26,7 +25,8 @@ type InstaSettings struct {
 	ShutterSpeed string
 }
 
-func readExif(fileName string) InstaExifs {
+// ReadExif reads exif data of an image file
+func ReadExif(fileName string) InstaExifs {
 	targetImage, err := os.Open(fileName)
 	if err != nil {
 		logger.Fatal("failed to read file")

@@ -1,20 +1,25 @@
-package instagen
+package template
 
 import (
 	"fmt"
 	"os"
 	"strings"
 
-	"github.com/tomotetra/instagen/cmd/utils/logger"
-
-	"github.com/tomotetra/instagen/cmd/utils/io"
+	"github.com/tomotetra/instagen/src/exif"
+	"github.com/tomotetra/instagen/src/utils/io"
+	"github.com/tomotetra/instagen/src/utils/logger"
 )
 
-// Template builds the post template from exifs
-func Template(x InstaExifs, params *flagParams) string {
+type Params struct {
+	Title    string
+	HashTags string
+}
+
+// BuildPost builds the post template from exifs
+func BuildPost(x exif.InstaExifs, params *Params) string {
 	var lines []string
-	if len(params.title) > 0 {
-		lines = append(lines, params.title)
+	if len(params.Title) > 0 {
+		lines = append(lines, params.Title)
 	}
 	lines = append(lines, x.Date)
 	lines = append(lines, "---")
@@ -23,12 +28,14 @@ func Template(x InstaExifs, params *flagParams) string {
 	lines = append(lines, fmt.Sprintf("ISO%s %smm f/%s %ss",
 		x.Settings.ISO, x.Settings.FocalLength, x.Settings.FNumber, x.Settings.ShutterSpeed))
 	lines = append(lines, ".")
-	lines = append(lines, buildHashTags(params.tags))
+	lines = append(lines, buildHashTagString(params.HashTags))
 	return strings.Join(lines, "\n")
 }
 
-func buildHashTags(t string) string {
+func buildHashTagString(t string) string {
+	// maximum count of hashtags permitted
 	MaxHashtags := 30
+
 	var tags []string
 	if len(t) > 0 {
 		tags = append(tags, strings.Split(t, " ")...)
