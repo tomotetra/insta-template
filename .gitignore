@@ -1,6 +1,9 @@
 # MacOS
 .DS_Store
 
+# bin
+instagen
+
 # Godep
 Godeps/Readme
 Godeps/_workspace
